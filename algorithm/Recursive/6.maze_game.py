@@ -34,9 +34,14 @@ test_maze = [
     [0, 1, 1, 1, 0, 1, 0, 0]
 ]
 
+# Recursion count
+recursion_count = 0
+
+# Maze Map Size
 height = len(test_maze)
 width = len(test_maze[0])
 
+# Maze Map Term
 pathway = 0
 wall = 1
 visited = 2
@@ -60,12 +65,12 @@ def printPages():
                 print("O", end="")
 
             if j == width - 1:
-                print("\n")
+                print("")
 
-count =0
+
 def findway(x, y):
-    global count
-    count+=1
+    global recursion_count
+    recursion_count += 1
     if x == width - 1 and y == height - 1:
         test_maze[x][y] = path
         return True
@@ -84,9 +89,20 @@ def findway(x, y):
 
 
 if __name__ == '__main__':
+    print("%% Maze Map %%")
+    print("%% pathway: =/ wall: *  %%")
+    print("\n")
+
     printPages()
     findway(0, 0)
-    print("~~~~~~~~~~~~~~~~~~~~~~")
+
+    print("")
+    print("%% Found Exit!! %%")
+    print("%% How can I exit the maze %%")
+    print("%% visited: -/ path: O/ wrong_path: X %%")
+    print("\n")
+
     printPages()
 
-    print("Total Recursion: %d" %count)
+    print("\n")
+    print("Total Recursion: %d" % recursion_count)
