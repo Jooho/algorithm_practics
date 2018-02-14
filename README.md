@@ -18,3 +18,9 @@ Each python may have 2 ways(iteration and recursive)
 - [Find the max number in a list](./algorithm/Recursive/5.find_max.py)
 - [Maze Gae](./algorithm/Recursive/6.maze_game.py)
 - [Counting Cells in a blob](./algorithm/Recursive/7.counting_cells_in_a_blob.py)
+
+
+### Sort
+
+- [Bubble Sort](./algorithm/Sort/1.bubble_sort.py)
+- [Insertion Sort](./algorithm/Sort/2.insertion_sort.py)
