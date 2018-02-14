@@ -19,16 +19,20 @@ __copyright__ = "Copyright 2018, The python_practice project"
 """
 import random
 
-debug=False
+import time
+
+debug = False
 test_data = []
-data_size = 10
+data_size = 10000  # 10000부터 급격히 느려짐(28초) 1000(0.2초)
+data_move = 0
 while len(test_data) < data_size:
-    data = random.randrange(0, 10)
+    data = random.randrange(0, data_size)
     if not (data in test_data):
         test_data.append(data)
 
 
 def move(data, index):
+    global data_move
     # 데이값이 1개일때는 비교할 필요없음
     if index == 0:
         return
@@ -41,7 +45,8 @@ def move(data, index):
     for check_index in reversed(range(data_length)):
         if debug:
             print(
-                "Target Data: %d Checking index:%d Checking index data:%d" % (target_data, check_index, data[check_index]),
+                "Target Data: %d Checking index:%d Checking index data:%d" % (
+                target_data, check_index, data[check_index]),
                 end="\n")
         if target_data < data[check_index]:
             if debug: print("Check index data 가 target data보다 크기 때문에 min_index를 %d로 변경합니다" % check_index)
@@ -53,10 +58,12 @@ def move(data, index):
     if min_index != index:
         for i in reversed(range(min_index, index)):
             data[i + 1] = data[i]
+            data_move += 1
         if debug: print("마지막으로 target data(%d)를 min_index(%d)에 삽입한다." % (target_data, min_index))
         data[min_index] = target_data
-    print(data)
-    print(" -"+ '-'*index*3 +"|")
+    if debug:
+        print(data)
+        print(" -" + '-' * index * 3 + "|")
 
 
 def sort():
@@ -66,6 +73,15 @@ def sort():
 
 if __name__ == '__main__':
     print("Test Data ===>", test_data, end="\n\n")
+
+    start_time = time.time()
+
     sort()
+
+    last_time = time.time()
     print("\n")
+    print(last_time - start_time)
+
+    print("\n")
+    print("Total move: %d" % data_move)
     print("Sorted Data ===>", test_data)
