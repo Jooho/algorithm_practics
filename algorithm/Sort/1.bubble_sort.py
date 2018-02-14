@@ -21,8 +21,14 @@ __copyright__ = "Copyright 2018, The python_practice project"
 """
 import random
 
-test_length = 10
-test_data = [random.randrange(0, test_length) for i in range(test_length)]
+import time
+
+data_size = 10000   # 10000부터 급격히 느려짐(40초)  1000(0.4초)
+test_data = []
+while len(test_data) < data_size:
+    data = random.randrange(0, data_size)
+    if not (data in test_data):
+        test_data.append(data)
 show_data = test_data[0:]
 sorted = 0
 total_swap = 0
@@ -31,7 +37,7 @@ total_swap = 0
 def compare():
     global sorted
     global total_swap
-    test_length = len(test_data)
+    test_length = data_size
     while test_length > 1:
         test_length -= 1
         if test_data[test_length - 1] <= test_data[test_length]:
@@ -39,17 +45,29 @@ def compare():
         else:
             total_swap += 1
             sorted += 1
-            temp = test_data[test_length - 1]
-            test_data[test_length - 1] = test_data[test_length]
-            test_data[test_length] = temp
+            test_data[test_length - 1], test_data[test_length] = test_data[test_length], test_data[test_length - 1]
 
+            # 위의 SWAP하는 방법을 풀면 아래와 같음
+            # temp = test_data[test_length - 1]
+            # test_data[test_length - 1] = test_data[test_length]
+            # test_data[test_length] = temp
+            # print(test_data)
 
 if __name__ == '__main__':
-    for i in range(test_length):
-        if sorted != test_length:
+    print(test_data)
+    start_time = time.time()
+
+    for i in range(data_size):
+        if sorted != data_size:
             compare()
         else:
             break
+
+    last_time = time.time()
+    print("\n")
+    print(last_time - start_time)
+
+    print("\n")
     print("Sort Completion!!")
     print("Total Swap:%d!!" % (total_swap))
     print("unsorted_data = " + ','.join(map(str, show_data)))
